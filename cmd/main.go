@@ -36,9 +36,9 @@ func main() {
 	if err != nil {
 		sugar.Fatalw("failed to migrate database", "error", err)
 	}
-	repo := repository.NewRepository(db, cfg)
-	svc := service.NewService(repo)
-	h := handler.NewHandler(svc, cfg)
+	repo := repository.NewRepository(db, cfg, sugar)
+	svc := service.NewService(repo, sugar)
+	h := handler.NewHandler(svc, cfg, sugar)
 
 	r := gin.Default()
 	api := r.Group("/api")
