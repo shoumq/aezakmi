@@ -37,4 +37,4 @@ Create Room
 > minikube service agora-app -n agora (берем порт из tunnel и вставляем его в @host в request.http)
 
 Для доступа к подключению к клиенту БД можно использовать эту команду
-> kubectl port-forward svc/postgres 5432:5432 -n agora
+> kubectl port-forward svc/postgres 5433:5432 -n agora
