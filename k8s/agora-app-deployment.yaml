@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agora-app
+  namespace: agora
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agora-app
+  template:
+    metadata:
+      labels:
+        app: agora-app
+    spec:
+      containers:
+        - name: agora-app
+          image: shoumq/agora-app:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_DB
+            - name: POSTGRES_HOST
+              value: postgres
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: AGORA_APP_ID
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: AGORA_APP_ID
+            - name: AGORA_APP_CERT
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: AGORA_APP_CERT

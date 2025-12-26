@@ -1,0 +1,46 @@
+@host = http://127.0.0.1:62412
+// порт в host всегда разный!
+
+@host_docker = http://localhost:8080
+@user_id = user_123
+
+### Auth (simple)
+POST {{host}}/api/auth/simple
+X-User-Id: {{user_id}}
+
+###
+
+### RTC Token
+POST {{host}}/api/tokens/rtc
+X-User-Id: {{user_id}}
+Content-Type: application/json
+
+{
+  "channel": "room_1",
+  "uid": "user_456",
+  "role": "host"
+}
+
+###
+
+### RTM Token
+POST {{host}}/api/tokens/rtm
+X-User-Id: {{user_id}}
+Content-Type: application/json
+
+{
+  "uid": "user_456"
+}
+
+###
+
+### Create Room
+POST {{host}}/api/rooms
+X-User-Id: {{user_id}}
+Content-Type: application/json
+
+{
+  "name": "Вебинар",
+  "is_private": true,
+  "max_participants": 50
+}
